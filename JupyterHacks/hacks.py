@@ -1,4 +1,6 @@
 from IPython.display import HTML, IFrame
+import requests
+import bs4
 import re
 
 
@@ -18,6 +20,29 @@ class DisplayVideo(IFrame):
         link = re.sub(unwanted_substrings, '', self.video_link)
         website, video = link.split('/')[-2:]
         src = self.sites[website].format(video)
+        return src
+
+
+class SlideShare(IFrame):
+    ''' Display a linkdin slideshare in a jupyter notebook.'''
+
+    def __init__(self, url, width=700, height=400, **kwargs):
+        src = self._get_slideshare_embed_src(url)
+        super().__init__(src, width, height, **kwargs)
+
+    @staticmethod
+    def get_url_text(url):
+        ''' Download the text from a given link.'''
+        req = requests.get(url)
+        req.raise_for_status()
+        html = bs4.BeautifulSoup(req.text, features='lxml')
+        return html
+
+    def _get_slideshare_embed_src(self, url):
+        ''' Extract the embed link from the SlideShare URL.'''
+        html = self.get_url_text(url)
+        container = html.find('div', id='slideview-container')
+        src = container.find('meta', itemprop='embedURL').get('content')
         return src
 
 

@@ -4,6 +4,7 @@ Snippets of code add to functionality to Jupyter Notebook.
 ## Install
 ```bash
 git clone https://github.com/superDross/JupyterHacks
+pip3 install -r JupyterHacks/requirements.txt
 export PYTHONPATH=$PYTHONPATH:/path/to/JupyterHacks
 ```
 
@@ -20,4 +21,10 @@ To hide all code and only display output in your notebook:
 from JupyterHacks.hacks import hide_code
 
 hide_code()
+```
+
+To display a LinkedIn SlideShare presentation into your notebook:
+```python
+from JupyterHacks.hacks import SlideShare
+SlideShare('https://www.slideshare.net/mbussonn/jupyter-a-platform-for-data-science-at-scale')
 ```
