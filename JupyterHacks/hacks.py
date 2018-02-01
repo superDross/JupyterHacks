@@ -30,19 +30,12 @@ class SlideShare(IFrame):
         src = self._get_slideshare_embed_src(url)
         super().__init__(src, width, height, **kwargs)
 
-    @staticmethod
-    def get_url_text(url):
-        ''' Download the text from a given link.'''
-        req = requests.get(url)
-        req.raise_for_status()
-        html = bs4.BeautifulSoup(req.text, features='lxml')
-        return html
-
     def _get_slideshare_embed_src(self, url):
         ''' Extract the embed link from the SlideShare URL.'''
-        html = self.get_url_text(url)
-        container = html.find('div', id='slideview-container')
-        src = container.find('meta', itemprop='embedURL').get('content')
+        embed_api = 'http://www.slideshare.net/api/oembed/2?url={}&format=json'
+        embed_url = embed_api.format(url)
+        r = requests.get(embed_url).json()
+        src = bs4.BeautifulSoup(r['html'], 'lxml').find('iframe').get('src')
         return src
 
 
