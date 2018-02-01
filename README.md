@@ -8,15 +8,15 @@ export PYTHONPATH=$PYTHONPATH:/path/to/JupyterHacks
 ```
 
 ## Example
-To embed a muted DailyMotion video that starts at the 90 seconds mark into your notebook:
+To display a muted DailyMotion video that starts at the 90 seconds mark into your notebook:
 ```python
-from JupyterHacks.hacks import EmbedVideo
+from JupyterHacks.hacks import DisplayVideo
 
-EmbedVideo('http://www.dailymotion.com/video/x6415ml', start=90, mute=1)
+DisplayVideo('http://www.dailymotion.com/video/x6415ml', start=90, mute=1)
 ```
 
 To hide all code and only display output in your notebook:
-```
+```python
 from JupyterHacks.hacks import hide_code
 
 hide_code()

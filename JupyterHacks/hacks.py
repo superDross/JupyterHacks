@@ -2,8 +2,8 @@ from IPython.display import HTML, IFrame
 import re
 
 
-class EmbedVideo(IFrame):
-    ''' Embed a video into a Jupyter Notebook.'''
+class DisplayVideo(IFrame):
+    ''' Display a video into a Jupyter Notebook.'''
 
     def __init__(self, video_link, width=700, height=400, **kwargs):
         self.sites = {'youtube.com': 'https://www.youtube.com/embed/{}',
